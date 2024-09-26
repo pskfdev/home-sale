@@ -1,7 +1,7 @@
 import React from "react";
 
 /* Components */
-import { AppBar, Box, Button, Toolbar } from "@mui/material";
+import { AppBar, Box, Toolbar } from "@mui/material";
 import { FiList, FiChevronDown, FiPhoneCall } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
