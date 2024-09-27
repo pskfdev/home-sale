@@ -1,72 +1,133 @@
 import React from "react";
-import { Container, ImageList, ImageListItem } from "@mui/material";
-
-const PropertyCard = ({ imageSrc, title, propertiesCount }) => {
-  return (
-    <div className="relative">
-      <img src={imageSrc} alt={title} className="w-full h-full object-cover" />
-      <div className="absolute bottom-0 left-0 bg-white bg-opacity-50 p-4">
-        <p className="text-lg font-bold">{title}</p>
-        <p>{propertiesCount} Properties</p>
-      </div>
-    </div>
-  );
-};
+import { Link } from "react-router-dom";
 
 function SelectType() {
-  const cards = [
-    {
-      id: 1,
-      title: "delectus aut autem",
-      url: "https://thepandaproperty.com/wp-content/uploads/2023/07/townhouse.jpeg",
-    },
-    {
-      id: 2,
-      title: "quis ut nam facilis et officia qui",
-      url: "https://thepandaproperty.com/wp-content/uploads/2023/07/ready-to-build.jpeg",
-    },
-    {
-      id: 3,
-      title: "fugiat veniam minus",
-      url: "https://thepandaproperty.com/wp-content/uploads/2023/07/semi-detached-house.jpeg",
-    },
-    {
-      id: 4,
-      title: "et porro tempora",
-      url: "https://thepandaproperty.com/wp-content/uploads/2023/07/condo.jpeg",
-    },
-    {
-      id: 5,
-      title: "laboriosam mollitia et",
-      url: "https://thepandaproperty.com/wp-content/uploads/2023/07/land.jpeg",
-    },
-    {
-      id: 6,
-      title: "qui ullam ratione quibusdam voluptatem quia omnis",
-      url: "https://thepandaproperty.com/wp-content/uploads/2023/07/single-house.jpeg",
-    },
-    {
-      id: 7,
-      title: "illo expedita consequatur quia in",
-      url: "https://thepandaproperty.com/wp-content/uploads/2023/07/apartment.jpeg",
-    },
-    {
-      id: 8,
-      title: "quo adipisci enim quam ut ab",
-      url: "https://thepandaproperty.com/wp-content/uploads/2023/07/commercial-building.jpg",
-    },
-  ];
-
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-      {cards.map((card, index) => (
-        <PropertyCard
-          key={index}
-          imageSrc={card.url}
-          title={card.title}
-          propertiesCount={card.id}
-        />
-      ))}
+    <div className="flex justify-center items-center my-5 px-5">
+      <div className="space-y-5 w-full">
+        <h2 className="text-center">เลือกประเภทที่ต้องการค้นหา</h2>
+
+        <div className="w-full h-full lg:h-[520px] grid grid-cols-1 lg:grid-cols-5 gap-4 text-white rounded-md overflow-hidden">
+          {/* Col 1 */}
+          <Link to="/townhouse" className="rounded-md overflow-hidden relative">
+            <img
+              src="https://thepandaproperty.com/wp-content/uploads/2023/07/townhouse.jpeg"
+              alt=""
+              className="w-full h-96 lg:h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
+            />
+
+            <div className="absolute top-12 w-full">
+              <h2 className="text-center">ทาวน์เฮ้าส์</h2>
+            </div>
+          </Link>
+
+          {/* Col 2 */}
+          <div className="space-y-4">
+            <div className="h-96 lg:h-2/5 rounded-md overflow-hidden relative">
+              <Link to="ready-build">
+                <img
+                  src="https://thepandaproperty.com/wp-content/uploads/2023/07/ready-to-build.jpeg"
+                  alt=""
+                  className="w-full h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
+                />
+
+                <div className="absolute top-12 w-full">
+                  <h2 className="text-center">ที่พร้อมสิ่งปลูกสร้าง</h2>
+                </div>
+              </Link>
+            </div>
+
+            <div className="h-96 lg:h-3/5 rounded-md overflow-hidden relative">
+              <Link to="semi-detached-house">
+                <img
+                  src="https://thepandaproperty.com/wp-content/uploads/2023/07/semi-detached-house.jpeg"
+                  alt=""
+                  className="w-full h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
+                />
+
+                <div className="absolute top-12 w-full">
+                  <h2 className="text-center">บ้านแฝด</h2>
+                </div>
+              </Link>
+            </div>
+          </div>
+
+          {/* Col 3 */}
+          <div className="space-y-4">
+            <div className="h-96 lg:h-3/5 rounded-md overflow-hidden relative">
+              <Link to="/condo">
+                <img
+                  src="https://thepandaproperty.com/wp-content/uploads/2023/07/condo.jpeg"
+                  alt=""
+                  className="w-full h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
+                />
+
+                <div className="absolute top-12 w-full">
+                  <h2 className="text-center">คอนโดมิเนียม</h2>
+                </div>
+              </Link>
+            </div>
+
+            <div className="h-96 lg:h-2/5 rounded-md overflow-hidden relative">
+              <Link to="/land">
+                <img
+                  src="https://thepandaproperty.com/wp-content/uploads/2023/07/land.jpeg"
+                  alt=""
+                  className="w-full h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
+                />
+
+                <div className="absolute top-12 w-full">
+                  <h2 className="text-center">ที่ดิน</h2>
+                </div>
+              </Link>
+            </div>
+          </div>
+
+          {/* Col 4 */}
+          <div className="space-y-4">
+            <div className="h-96 lg:h-2/5 rounded-md overflow-hidden relative">
+              <Link to="single-house">
+                <img
+                  src="https://thepandaproperty.com/wp-content/uploads/2023/07/single-house.jpeg"
+                  alt=""
+                  className="w-full h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
+                />
+
+                <div className="absolute top-12 w-full">
+                  <h2 className="text-center">บ้านเดี่ยว</h2>
+                </div>
+              </Link>
+            </div>
+
+            <div className="h-96 lg:h-3/5 rounded-md overflow-hidden relative">
+              <Link to="/apartment">
+                <img
+                  src="https://thepandaproperty.com/wp-content/uploads/2023/07/apartment.jpeg"
+                  alt=""
+                  className="w-full h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
+                />
+
+                <div className="absolute top-12 w-full">
+                  <h2 className="text-center">อพาร์ทเมนท์</h2>
+                </div>
+              </Link>
+            </div>
+          </div>
+
+          {/* Col 5 */}
+          <Link to="/commercial-building" className="rounded-md overflow-hidden relative">
+            <img
+              src="https://thepandaproperty.com/wp-content/uploads/2023/07/commercial-building.jpg"
+              alt=""
+              className="w-full h-96 lg:h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
+            />
+
+            <div className="absolute top-12 w-full">
+              <h2 className="text-center">อาคารพาณิชย์</h2>
+            </div>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

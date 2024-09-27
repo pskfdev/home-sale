@@ -24,3 +24,7 @@
     @apply text-[10.72px] font-bold;
   }
 }
+
+*{
+  font-family: "Prompt", sans-serif;
+}
