@@ -49,14 +49,12 @@ function ListHome() {
             </Link>
             <p className="text-gray-700">townhouse</p>
           </Breadcrumbs>
-
           <h2>townhouse</h2>
         </div>
 
         {/* list-house */}
         <div className="space-y-5">
           <p>617 อสังหาริมทรัพย์</p>
-
 
           <div className="space-y-5">
             <Cardhouse />
