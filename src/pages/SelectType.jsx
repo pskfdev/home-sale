@@ -24,7 +24,7 @@ function SelectType() {
           {/* Col 2 */}
           <div className="space-y-4">
             <div className="h-96 lg:h-2/5 rounded-md overflow-hidden relative">
-              <Link to="ready-build">
+              <Link to="/ready-build">
                 <img
                   src="https://thepandaproperty.com/wp-content/uploads/2023/07/ready-to-build.jpeg"
                   alt=""
@@ -86,7 +86,7 @@ function SelectType() {
           {/* Col 4 */}
           <div className="space-y-4">
             <div className="h-96 lg:h-2/5 rounded-md overflow-hidden relative">
-              <Link to="single-house">
+              <Link to="/single-house">
                 <img
                   src="https://thepandaproperty.com/wp-content/uploads/2023/07/single-house.jpeg"
                   alt=""

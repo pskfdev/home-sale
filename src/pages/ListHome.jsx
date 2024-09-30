@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 //Components
 import { Autocomplete, Breadcrumbs, Button, TextField } from "@mui/material";
@@ -17,26 +17,51 @@ const county = [
 ];
 
 function ListHome() {
+  const value = useRef({
+    county: "",
+    detail: "",
+  });
+
+  const handleChange = (e) => {
+    /* const { name, value } = e.target; */
+    value.current = {
+      ...value.current,
+      [e.target.name]: e.target.value,
+    };
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    console.log(value.current);
+  };
+
   return (
-    <div>
-      {/* Search-house */}
-      <form className="w-full py-5 px-5 flex justify-between space-x-5 border-b-2 border-gray-300">
+    <div className="min-h-screen bg-gray-100">
+      {/* Form Search-house */}
+      <form
+        onSubmit={handleSearch}
+        className="w-full py-5 px-5 flex justify-between space-x-5 border-b-2"
+      >
         <Autocomplete
           disablePortal
           options={county}
           sx={{ width: "50%" }}
           renderInput={(params) => <TextField {...params} label="จังหวัด" />}
+          onChange={(e, v) => (value.current.county = v)}
         />
 
         <TextField
           required
-          id="outlined-required"
+          name="detail"
           label="อำเภอ / ตำบล"
-          /* defaultValue="Hello World" */
           sx={{ width: "100%" }}
+          onChange={handleChange}
         />
 
-        <Button variant="contained">ค้นหา</Button>
+        <Button type="submit" variant="contained">
+          ค้นหา
+        </Button>
       </form>
 
       {/* content */}
@@ -44,9 +69,7 @@ function ListHome() {
         {/* Head */}
         <div className="space-y-2">
           <Breadcrumbs aria-label="breadcrumb">
-            <Link underline="hover" color="inherit" href="/">
-              หน้าแรก
-            </Link>
+            <Link to="/">หน้าแรก</Link>
             <p className="text-gray-700">townhouse</p>
           </Breadcrumbs>
           <h2>townhouse</h2>

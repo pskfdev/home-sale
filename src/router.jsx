@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 
 /* Components */
-import App from "./App";
 import MainLayout from "./components/layout/MainLayout";
 import ListHome from "./pages/ListHome";
 import SelectType from "./pages/SelectType";
+import Contact from "./pages/Contact";
+import DetailHome from "./pages/DetailHome";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,14 @@ export const router = createBrowserRouter([
       {
         path: "/:type",
         element: <ListHome />,
+      },
+      {
+        path: "/:type/:detail",
+        element: <DetailHome />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
       },
     ],
   },

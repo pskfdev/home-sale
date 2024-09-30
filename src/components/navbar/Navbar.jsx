@@ -2,17 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 /* Components */
-import {
-  AppBar,
-  Box,
-  Drawer,
-  Menu,
-  MenuItem,
-  Toolbar,
-} from "@mui/material";
+import { AppBar, Box, Drawer, Menu, MenuItem, Toolbar } from "@mui/material";
 import { FiList, FiChevronDown, FiPhoneCall } from "react-icons/fi";
 import SidebarMenu from "./SidebarMenu";
-
 
 function Navbar() {
   const [menu, setMenu] = useState(null);
@@ -40,10 +32,13 @@ function Navbar() {
                 <FiList size={35} onClick={toggleDrawer(true)} />
               </div>
               {/* Menu-Sidebar */}
-              <Drawer open={open} onClose={toggleDrawer(false)} >
-                <SidebarMenu toggleDrawer={toggleDrawer} />
+              <Drawer open={open} onClose={toggleDrawer(false)}>
+                <SidebarMenu />
               </Drawer>
-              <h2>Home Sale</h2>
+
+              <Link to="/">
+                <h2>Home Sale</h2>
+              </Link>
             </div>
 
             {/* Menu */}
@@ -60,7 +55,6 @@ function Navbar() {
                   ที่อยู่อาศัย
                 </p>{" "}
                 <FiChevronDown size={20} className="mt-1 cursor-pointer" />
-
                 {/* default hidden dropdown-menu */}
                 <Menu
                   anchorEl={menu}
@@ -68,16 +62,16 @@ function Navbar() {
                   onClose={selectDropdown}
                   className="mt-2"
                 >
-                  <MenuItem onClick={selectDropdown}>ทาวน์เฮ้าส์</MenuItem>
-                  <MenuItem onClick={selectDropdown}>
+                  <MenuItem component={Link} to="/townhouse">ทาวน์เฮ้าส์</MenuItem>
+                  <MenuItem component={Link} to="/ready-build">
                     ที่พร้อมสิ่งปลูกสร้าง
                   </MenuItem>
-                  <MenuItem onClick={selectDropdown}>บ้านแฝด</MenuItem>
-                  <MenuItem onClick={selectDropdown}>คอนโดมิเนียม</MenuItem>
-                  <MenuItem onClick={selectDropdown}>ที่ดิน</MenuItem>
-                  <MenuItem onClick={selectDropdown}>บ้านเดี่ยว</MenuItem>
-                  <MenuItem onClick={selectDropdown}>อพาร์ทเมนท์</MenuItem>
-                  <MenuItem onClick={selectDropdown}>อาคารพาณิชย์</MenuItem>
+                  <MenuItem component={Link} to="/semi-detached-house">บ้านแฝด</MenuItem>
+                  <MenuItem component={Link} to="/condo">คอนโดมิเนียม</MenuItem>
+                  <MenuItem component={Link} to="/land">ที่ดิน</MenuItem>
+                  <MenuItem component={Link} to="/single-house">บ้านเดี่ยว</MenuItem>
+                  <MenuItem component={Link} to="/apartment">อพาร์ทเมนท์</MenuItem>
+                  <MenuItem component={Link} to="/commercial-building">อาคารพาณิชย์</MenuItem>
                 </Menu>
               </div>
               <Link to={`/contact`}>ติดต่อเรา</Link>
