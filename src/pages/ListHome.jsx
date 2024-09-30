@@ -5,6 +5,9 @@ import { Autocomplete, Breadcrumbs, Button, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 import Cardhouse from "../components/util/Card-house";
 
+//Data proprty
+import dataJson from "../assets/data.json"
+
 const county = [
   "กรุงเทพมหานคร",
   "สมุทรปราการ",
@@ -17,6 +20,10 @@ const county = [
 ];
 
 function ListHome() {
+  
+  console.log(dataJson);
+  
+  
   return (
     <div>
       {/* Search-house */}
