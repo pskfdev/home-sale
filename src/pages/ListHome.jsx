@@ -1,12 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 //Components
 import { Autocomplete, Breadcrumbs, Button, TextField } from "@mui/material";
-import { Link } from "react-router-dom";
 import Cardhouse from "../components/util/Card-house";
-
-//Data proprty
-import dataJson from "../assets/data.json"
 
 const county = [
   "กรุงเทพมหานคร",
@@ -24,6 +21,11 @@ function ListHome() {
     county: "",
     detail: "",
   });
+  const [data, setData] = useState([]);
+  const [dataSearch, setDataSearch] = useState([]);
+  /* Get pathname */
+  const location = useLocation();
+  const pathname = location.pathname.substring(1);
 
   const handleChange = (e) => {
     /* const { name, value } = e.target; */
@@ -36,8 +38,42 @@ function ListHome() {
   const handleSearch = (e) => {
     e.preventDefault();
 
-    console.log(value.current);
+    if (data.length == 0) {
+      alert("ไม่มีข้อมูลที่ค้นหา");
+      return;
+    } else if(!value.current.county|| !value.current.detail) {
+      alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+      return;
+    }
+
+    let resultFilter = data?.filter(
+      (item) =>
+        item.county == value.current.county &&
+        item.detail.toLowerCase().includes(value.current.detail.toLowerCase())
+    );
+
+    setDataSearch(resultFilter);
   };
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("./data.json");
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+
+      const json = await response.json();
+      const filter = json?.filter((item) => item.type == pathname);
+      setData(filter);
+      setDataSearch(filter);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -55,9 +91,9 @@ function ListHome() {
         />
 
         <TextField
-          required
+          /* required */
           name="detail"
-          label="อำเภอ / ตำบล"
+          label="รายละเอียดสถานที่"
           sx={{ width: "100%" }}
           onChange={handleChange}
         />
@@ -73,18 +109,21 @@ function ListHome() {
         <div className="space-y-2">
           <Breadcrumbs aria-label="breadcrumb">
             <Link to="/">หน้าแรก</Link>
-            <p className="text-gray-700">townhouse</p>
+            <p className="text-gray-700">{pathname}</p>
           </Breadcrumbs>
-          <h2>townhouse</h2>
+          <h2 className="uppercase">{pathname}</h2>
         </div>
 
         {/* list-house */}
         <div className="space-y-5">
-          <p>617 อสังหาริมทรัพย์</p>
+          <p>{dataSearch?.length} อสังหาริมทรัพย์</p>
 
           <div className="space-y-5">
-            <Cardhouse />
-            <Cardhouse />
+            {dataSearch.length != 0 ? (
+              dataSearch.map((item) => <Cardhouse item={item} key={item.id} />)
+            ) : (
+              <h1>ไม่มีข้อมูล</h1>
+            )}
           </div>
         </div>
       </div>

@@ -1,16 +1,40 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 //Components
 import { Breadcrumbs, Container, Divider } from "@mui/material";
 import { FiPhoneCall, FiUser } from "react-icons/fi";
 import Carousel from "../components/util/Carousel";
 
 function DetailHome() {
+  const [data, setData] = useState([]);
+  const { id } = useParams();
+  
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("/public/data.json");
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+
+      const json = await response.json();
+      const filter = json?.filter((item) => item.id == id);
+      
+      setData(filter[0]);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [id]);
+
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Carousel */}
       <div className="h-[500px] w-full bg-black">
-        <Carousel />
+        <Carousel url={data?.url} />
       </div>
 
       {/* Detail */}
@@ -19,15 +43,15 @@ function DetailHome() {
         <div className="space-y-4">
           <Breadcrumbs aria-label="breadcrumb">
             <Link to="/">หน้าแรก</Link>
-            <Link to="/">townhouse</Link>
+            <Link to="/">{data?.type}</Link>
             <p className="text-gray-700">
-              ขายทาวน์เฮาส์ 2 ชั้น นวมินทร์ 74 หลังแม็กแวลู
+              {data?.title}
             </p>
           </Breadcrumbs>
 
           <div className="flex flex-col md:flex-row space-y-5 md:space-y-0 justify-between">
-            <h2>ขายทาวน์เฮาส์ 2 ชั้น นวมินทร์ 74 หลังแม็กแวลู</h2>
-            <h2>฿1,990,000 บาท</h2>
+            <h2>{data?.title}</h2>
+            <h2>{data?.price}</h2>
           </div>
         </div>
 
@@ -36,15 +60,10 @@ function DetailHome() {
           <h3 className="mb-5">คำอธิบาย</h3>
           <Divider />
           <div className="mt-5 md:pe-20 space-y-4">
-            <p>ขายทาวน์เฮาส์ 2 ชั้น นวมินทร์ 74 หลังแม็กแวลู</p>
+            <p>{data?.title}</p>
             <p>รายละเอียดบ้าน</p>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
-              optio soluta sed in, minima facere consectetur, perspiciatis quia
-              hic, inventore enim? Nesciunt exercitationem, reiciendis earum
-              dolores nemo natus nihil. Culpa nesciunt sapiente cumque nemo
-              nisi, maiores quas tempora voluptatem doloribus quaerat odio nihil
-              minima? Ducimus vel voluptas unde sint explicabo!
+              {data?.detailHome}
             </p>
           </div>
         </div>
@@ -54,7 +73,7 @@ function DetailHome() {
           <h3 className="mb-5">ช่องทางติดต่อ</h3>
           <Divider />
           <div className="mt-5 pe-20 space-y-4">
-            <p>ขายทาวน์เฮาส์ 2 ชั้น นวมินทร์ 74 หลังแม็กแวลู</p>
+            <p>{data?.title}</p>
             <div className="flex space-x-2">
               <FiUser size={20} />
               <p>Home Sale</p>

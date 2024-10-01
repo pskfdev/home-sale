@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
         element: <ListHome />,
       },
       {
-        path: "/:type/:detail",
+        path: "/:type/:id",
         element: <DetailHome />,
       },
       {
