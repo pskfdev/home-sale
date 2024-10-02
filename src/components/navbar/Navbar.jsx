@@ -37,7 +37,7 @@ function Navbar() {
               </Drawer>
 
               <Link to="/">
-                <h2>Home Sale</h2>
+                <h2>เสือ เอเจ้น</h2>
               </Link>
             </div>
 
@@ -81,7 +81,7 @@ function Navbar() {
           {/* flex-end */}
           <div className="flex items-center space-x-2 p-2 bg-blue-900 text-white rounded-xl">
             <FiPhoneCall size={22} className="mt-1" />
-            <h4>096 885 5869</h4>
+            <h4>099 454 4489</h4>
           </div>
         </Toolbar>
       </AppBar>

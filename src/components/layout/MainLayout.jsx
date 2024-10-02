@@ -6,15 +6,15 @@ import Navbar from '../navbar/Navbar';
 
 function MainLayout() {
   return (
-    <>
-        <nav>
+    <div className='bg-slate-100'>
+        <nav className='sticky top-0 z-10'>
             <Navbar />
         </nav>
 
         <main>
             <Outlet />
         </main>
-    </>
+    </div>
   )
 }
 

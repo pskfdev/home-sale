@@ -6,6 +6,7 @@ import ListHome from "./pages/ListHome";
 import SelectType from "./pages/SelectType";
 import Contact from "./pages/Contact";
 import DetailHome from "./pages/DetailHome";
+import HomeAdmin from "./pages/admin/Home-Admin";
 
 export const router = createBrowserRouter([
   {
@@ -30,8 +31,8 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  /* {
-    path: "/townhome",
-    element: <App />
-  } */
+  {
+    path: "/admin-bank",
+    element: <HomeAdmin />
+  }
 ]);

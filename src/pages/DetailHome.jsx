@@ -43,7 +43,7 @@ function DetailHome() {
         <div className="space-y-4">
           <Breadcrumbs aria-label="breadcrumb">
             <Link to="/">หน้าแรก</Link>
-            <Link to="/">{data?.type}</Link>
+            <Link to={`/${data?.type}`}>{data?.type}</Link>
             <p className="text-gray-700">
               {data?.title}
             </p>
@@ -61,7 +61,7 @@ function DetailHome() {
           <Divider />
           <div className="mt-5 md:pe-20 space-y-4">
             <p>{data?.title}</p>
-            <p>รายละเอียดบ้าน</p>
+            <p className="text-slate-700">รายละเอียดบ้าน</p>
             <p>
               {data?.detailHome}
             </p>
@@ -76,11 +76,11 @@ function DetailHome() {
             <p>{data?.title}</p>
             <div className="flex space-x-2">
               <FiUser size={20} />
-              <p>Home Sale</p>
+              <p>เสือ เอเจ้น</p>
             </div>
             <div className="flex space-x-2">
               <FiPhoneCall size={20} />
-              <p>096 886 9898</p>
+              <p>099 454 4489</p>
             </div>
           </div>
         </div>

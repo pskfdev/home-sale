@@ -17,10 +17,12 @@ const county = [
 ];
 
 function ListHome() {
+  /* useRef เวลา rerender ข้อมูลจะไม่ถูก reset */
   const value = useRef({
     county: "",
     detail: "",
   });
+  
   const [data, setData] = useState([]);
   const [dataSearch, setDataSearch] = useState([]);
   /* Get pathname */
@@ -73,7 +75,7 @@ function ListHome() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [location.pathname]);
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -86,12 +88,13 @@ function ListHome() {
           disablePortal
           options={county}
           sx={{ width: "50%" }}
-          renderInput={(params) => <TextField {...params} label="จังหวัด" />}
+          renderInput={(params) => <TextField required {...params} label="จังหวัด" />}
           onChange={(e, v) => (value.current.county = v)}
         />
 
         <TextField
-          /* required */
+          required
+          type="search"
           name="detail"
           label="รายละเอียดสถานที่"
           sx={{ width: "100%" }}
@@ -116,7 +119,7 @@ function ListHome() {
 
         {/* list-house */}
         <div className="space-y-5">
-          <p>{dataSearch?.length} อสังหาริมทรัพย์</p>
+          <p className="text-yellow-500">{dataSearch?.length} อสังหาริมทรัพย์</p>
 
           <div className="space-y-5">
             {dataSearch.length != 0 ? (

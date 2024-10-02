@@ -11,7 +11,7 @@ function SelectType() {
           {/* Col 1 */}
           <Link to="/townhouse" className="rounded-md overflow-hidden relative">
             <img
-              src="https://thepandaproperty.com/wp-content/uploads/2023/07/townhouse.jpeg"
+              src="/public/img/static/townhouse.jpeg"
               alt=""
               className="w-full h-96 lg:h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
             />
@@ -26,7 +26,7 @@ function SelectType() {
             <div className="h-96 lg:h-2/5 rounded-md overflow-hidden relative">
               <Link to="/ready-build">
                 <img
-                  src="https://thepandaproperty.com/wp-content/uploads/2023/07/ready-to-build.jpeg"
+                  src="/public/img/static/ready-build.jpeg"
                   alt=""
                   className="w-full h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
                 />
@@ -40,7 +40,7 @@ function SelectType() {
             <div className="h-96 lg:h-3/5 rounded-md overflow-hidden relative">
               <Link to="semi-detached-house">
                 <img
-                  src="https://thepandaproperty.com/wp-content/uploads/2023/07/semi-detached-house.jpeg"
+                  src="/public/img/static/semi-house.jpeg"
                   alt=""
                   className="w-full h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
                 />
@@ -57,7 +57,7 @@ function SelectType() {
             <div className="h-96 lg:h-3/5 rounded-md overflow-hidden relative">
               <Link to="/condo">
                 <img
-                  src="https://thepandaproperty.com/wp-content/uploads/2023/07/condo.jpeg"
+                  src="/public/img/static/condo.jpeg"
                   alt=""
                   className="w-full h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
                 />
@@ -71,7 +71,7 @@ function SelectType() {
             <div className="h-96 lg:h-2/5 rounded-md overflow-hidden relative">
               <Link to="/land">
                 <img
-                  src="https://thepandaproperty.com/wp-content/uploads/2023/07/land.jpeg"
+                  src="/public/img/static/land.jpeg"
                   alt=""
                   className="w-full h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
                 />
@@ -88,7 +88,7 @@ function SelectType() {
             <div className="h-96 lg:h-2/5 rounded-md overflow-hidden relative">
               <Link to="/single-house">
                 <img
-                  src="https://thepandaproperty.com/wp-content/uploads/2023/07/single-house.jpeg"
+                  src="/public/img/static/single-house.jpeg"
                   alt=""
                   className="w-full h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
                 />
@@ -102,7 +102,7 @@ function SelectType() {
             <div className="h-96 lg:h-3/5 rounded-md overflow-hidden relative">
               <Link to="/apartment">
                 <img
-                  src="https://thepandaproperty.com/wp-content/uploads/2023/07/apartment.jpeg"
+                  src="/public/img/static/apartment.jpeg"
                   alt=""
                   className="w-full h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
                 />
@@ -117,7 +117,7 @@ function SelectType() {
           {/* Col 5 */}
           <Link to="/commercial-building" className="rounded-md overflow-hidden relative">
             <img
-              src="https://thepandaproperty.com/wp-content/uploads/2023/07/commercial-building.jpg"
+              src="/public/img/static/commercial-building.jpg"
               alt=""
               className="w-full h-96 lg:h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
             />
