@@ -8,6 +8,7 @@ import Contact from "./pages/Contact";
 import DetailHome from "./pages/DetailHome";
 import HomeAdmin from "./pages/admin/Home-Admin";
 
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -32,7 +33,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/admin-bank",
-    element: <HomeAdmin />
+    path: "/admin-bank/*",
+    element: <HomeAdmin />,
   }
 ]);
