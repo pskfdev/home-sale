@@ -1,8 +1,26 @@
-# React + Vite
+# hester
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+เป็นโปรเจคที่จัดทำขึ้นเพื่อเก็บข้อมูลและแสดงผล เพื่อให้ผู้ใช้ค้นหาอสังหาริมทรัพย์ที่สนใจ โดยใช้ `Vite React`
 
-Currently, two official plugins are available:
+และมีฟังก์ชั่นดังนี้
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### สำหรับผู้ใช้ทั่วไป
+* ค้นหาอสังหาริมทรัพย์ที่สนใจได้ โดยค้นหาจากจังหวัดและตำแหน่งสถานที่ ที่ต้องการ
+* ดูรายละเอียดอสังหาริมทรัพย์
+
+
+## language & library
+
+* vite --template React
+* css
+  * tailwind
+  * material ui
+  * react-admin
+  * swiper (carousel)
+* Json
+
+
+## website & design
+
+> [Website เสือ-เอเจ้น](https://tiger-agent.netlify.app/)
+
