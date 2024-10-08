@@ -12,7 +12,7 @@ function DetailHome() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("/public/data.json");
+      const response = await fetch("/data.json");
       if (!response.ok) {
         throw new Error(`Response status: ${response.status}`);
       }

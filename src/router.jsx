@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Link } from "react-router-dom";
 
 /* Components */
 import MainLayout from "./components/layout/MainLayout";
@@ -35,5 +35,16 @@ export const router = createBrowserRouter([
   {
     path: "/admin-bank/*",
     element: <HomeAdmin />,
-  }
+  },
+  {
+    path: "*",
+    element: (
+      <div className="text-center h-100">
+        <p className="my-10">There's nothing here: 404!</p>
+        <Link to="/" className="p-2 rounded-md text-white bg-blue-500">
+          Go to home page
+        </Link>
+      </div>
+    ),
+  },
 ]);

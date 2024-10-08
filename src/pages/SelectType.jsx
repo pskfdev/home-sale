@@ -11,7 +11,7 @@ function SelectType() {
           {/* Col 1 */}
           <Link to="/townhouse" className="rounded-md overflow-hidden relative">
             <img
-              src="/public/img/static/townhouse.jpeg"
+              src="/img/static/townhouse.jpeg"
               alt=""
               className="w-full h-96 lg:h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
             />
@@ -26,7 +26,7 @@ function SelectType() {
             <div className="h-96 lg:h-2/5 rounded-md overflow-hidden relative">
               <Link to="/ready-build">
                 <img
-                  src="/public/img/static/ready-build.jpeg"
+                  src="/img/static/ready-build.jpeg"
                   alt=""
                   className="w-full h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
                 />
@@ -40,7 +40,7 @@ function SelectType() {
             <div className="h-96 lg:h-3/5 rounded-md overflow-hidden relative">
               <Link to="semi-detached-house">
                 <img
-                  src="/public/img/static/semi-house.jpeg"
+                  src="/img/static/semi-house.jpeg"
                   alt=""
                   className="w-full h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
                 />
@@ -57,7 +57,7 @@ function SelectType() {
             <div className="h-96 lg:h-3/5 rounded-md overflow-hidden relative">
               <Link to="/condo">
                 <img
-                  src="/public/img/static/condo.jpeg"
+                  src="/img/static/condo.jpeg"
                   alt=""
                   className="w-full h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
                 />
@@ -71,7 +71,7 @@ function SelectType() {
             <div className="h-96 lg:h-2/5 rounded-md overflow-hidden relative">
               <Link to="/land">
                 <img
-                  src="/public/img/static/land.jpeg"
+                  src="/img/static/land.jpeg"
                   alt=""
                   className="w-full h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
                 />
@@ -88,7 +88,7 @@ function SelectType() {
             <div className="h-96 lg:h-2/5 rounded-md overflow-hidden relative">
               <Link to="/single-house">
                 <img
-                  src="/public/img/static/single-house.jpeg"
+                  src="/img/static/single-house.jpeg"
                   alt=""
                   className="w-full h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
                 />
@@ -102,7 +102,7 @@ function SelectType() {
             <div className="h-96 lg:h-3/5 rounded-md overflow-hidden relative">
               <Link to="/apartment">
                 <img
-                  src="/public/img/static/apartment.jpeg"
+                  src="/img/static/apartment.jpeg"
                   alt=""
                   className="w-full h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
                 />
@@ -117,7 +117,7 @@ function SelectType() {
           {/* Col 5 */}
           <Link to="/commercial-building" className="rounded-md overflow-hidden relative">
             <img
-              src="/public/img/static/commercial-building.jpg"
+              src="/img/static/commercial-building.jpg"
               alt=""
               className="w-full h-96 lg:h-full object-cover brightness-50 cursor-pointer hover:brightness-90"
             />

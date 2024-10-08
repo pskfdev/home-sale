@@ -6,7 +6,7 @@ function Contact() {
       <div className="w-4/5 mx-auto flex flex-col lg:flex-row justify-center items-center lg:px-20 text-center space-y-10 lg:space-y-0">
         <div className="w-full">
           <img
-            src="../../public/img/static/contact-img.png"
+            src="/img/static/contact-img.png"
             className="w-fit mx-auto rounded-full shadow-2xl"
             alt="contact"
           />
