@@ -10,6 +10,7 @@ import HomeAdmin from "./pages/admin/Home-Admin";
 
 
 export const router = createBrowserRouter([
+  /* Client router */
   {
     path: "/",
     element: <MainLayout />,
@@ -32,10 +33,12 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  /* Admin router */
   {
     path: "/admin-bank/*",
     element: <HomeAdmin />,
   },
+  /* Page not found */
   {
     path: "*",
     element: (
