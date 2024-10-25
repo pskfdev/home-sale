@@ -1,7 +1,24 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+//Function
+import { listCategory } from "../functions/category";
+
 function SelectType() {
+
+  const [category, setCategory] = useState([]);
+
+  const fetchCategory = () => {
+    listCategory()
+    .then((res) => setCategory(res.data))
+    .catch((err) => console.log("Error:", err))
+  }
+
+
+  useEffect(() => {
+    fetchCategory()
+  }, [])
+
   return (
     <div className="flex justify-center items-center my-5 px-5">
       <div className="space-y-5 w-full">

@@ -1,42 +1,143 @@
-import { fetchUtils } from 'react-admin';
+import axios from "axios";
 
-// สร้าง custom data provider เพื่อโหลดข้อมูลจากไฟล์ JSON
-const customDataProvider = {
-  getList: (resource, params) => {
-    // ดึงข้อมูลจากไฟล์ JSON
-    return fetch("/data.json")
-      .then(response => response.json())
-      .then(data => {
-      
-        let filteredData = data;
 
-        // กรองตาม title
-        if (params.filter && params.filter.title) {
-          filteredData = filteredData.filter(item =>
-            item.title.toLowerCase().includes(params.filter.title.toLowerCase())
-          );
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyOTQxMzUxOCwiZXhwIjoxNzMwNzA5NTE4fQ.vYmW5iNoxuTrkYZ0SnmWDuRSY_u5bKdLJNP0bp31G9A";
+// สร้างรายการ path ที่ต้องใช้ token
+const protectedPaths = ['/user', '/wishlist'];
+
+// สร้าง Axios instance
+const axiosInstance = axios.create({
+  /* baseURL: 'http://api.example.com', */
+  headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+  },
+});
+
+// เพิ่ม token เข้าใน request headers ถ้า path นั้นต้องการ token
+axiosInstance.interceptors.request.use((config) => {
+  
+  // ตรวจสอบว่าชื่อ path อยู่ในรายการ protectedPaths หรือไม่
+  const isProtectedPath = protectedPaths.some(path => config.url.includes(path));
+
+  if (token && isProtectedPath) {
+      config.headers.authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+
+// ฟังก์ชั่น Method ต่างๆ สำหรับใช้ติดต่อกับ Backend API
+const dataProvider = {
+  getList: async(resource, params) => {
+    try {
+      const { page, perPage } = params.pagination;
+      const filter = params.filter;
+
+      const response = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/${resource}`);
+      let data = response.data;
+
+      // กรองข้อมูลตามหลายฟิลด์ใน filter
+      if (filter.name) {
+        data = data.filter(item =>
+            item.name.toLowerCase().includes(filter.name.toLowerCase())
+        );
+      }
+      if (filter.title) {
+        data = data.filter(item =>
+            item.title.toLowerCase().includes(filter.title.toLowerCase())
+        );
+      }
+
+
+      // แบ่งข้อมูลเป็นหน้าๆ ตาม page และ perPage
+      const start = (page - 1) * perPage;
+      const end = start + perPage;
+      const paginatedData = data.slice(start, end);
+
+      return {
+          data: paginatedData,
+          total: data.length,  // จำนวนข้อมูลทั้งหมดเพื่อคำนวณหน้าทั้งหมด
+      };
+
+      //แบบไม่ใช้ Pagination
+      /* return {
+        data: response.data.map((record) => ({ ...record, id: record.id })), // ใส่ id ให้ react-admin ใช้
+        total: response.data.length,
+      }; */
+    } catch (error) {
+      console.log("Err", error);
+    }
+  },
+
+  getOne: async(resource, params) => {
+    try {
+      const response = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/${resource}/${params.id}`);
+  
+      return {
+        data: { ...response.data, id: response.data.id }, // ใส่ id ในข้อมูล
+      };
+    } catch (error) {
+      console.log("Err", error);
+    }
+  },
+
+  create: async(resource, params) => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/${resource}`,
+        params.data,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
         }
+      );
 
-        return {
-          data: filteredData,
-          total: filteredData.length,
-        };
-      });
+  
+      return {
+        data: { ...response.data, id: response.data.id },
+      };
+    } catch (error) {
+      console.log("Err", error);
+    }
   },
 
-  getOne: (resource, params) => {
-    // ดึงข้อมูลเฉพาะที่มี id ตรงกับ params.id
-    return fetch("/data.json")
-      .then(response => response.json())
-      .then(data => {
-        const record = data.find(item => item.id === params.id);
-        return {
-          data: record, // ส่งข้อมูลของรายการที่เลือก
-        };
-      });
+  update: async(resource, params) => {
+    try {
+      const response = await axios.put(`${import.meta.env.VITE_API_URL}/${resource}/${params.id}`,
+        params.data,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      return {
+        data: { ...response.data, id: response.data.id },
+      };
+    } catch (error) {
+      console.log("Err", error);
+    }
   },
 
-  // เพิ่ม method อื่นๆ ถ้าจำเป็น เช่น create, update, delete
+  delete: async (resource, params) => {
+    try {
+      const response = await axios.delete(`${import.meta.env.VITE_API_URL}/${resource}/${params.id}`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      return {
+        data: { ...response.data, id: response.data.id },
+      };
+    } catch (error) {
+      console.log("Err", error);
+    }
+  },
 };
 
-export default customDataProvider;
+export default dataProvider;
