@@ -1,54 +1,55 @@
 import axios from "axios";
 
-
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyOTQxMzUxOCwiZXhwIjoxNzMwNzA5NTE4fQ.vYmW5iNoxuTrkYZ0SnmWDuRSY_u5bKdLJNP0bp31G9A";
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mjk5MzE2NjgsImV4cCI6MTczMTIyNzY2OH0.B3g6Sh55jAe-3dD-cCnHWJigFnQQj_gy9QjtMMTwG_U";
 // สร้างรายการ path ที่ต้องใช้ token
-const protectedPaths = ['/user', '/wishlist'];
+const protectedPaths = ["/user", "/wishlist"];
 
 // สร้าง Axios instance
 const axiosInstance = axios.create({
   /* baseURL: 'http://api.example.com', */
   headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
+    "Content-Type": "application/json",
+    Accept: "application/json",
   },
 });
 
 // เพิ่ม token เข้าใน request headers ถ้า path นั้นต้องการ token
 axiosInstance.interceptors.request.use((config) => {
-  
   // ตรวจสอบว่าชื่อ path อยู่ในรายการ protectedPaths หรือไม่
-  const isProtectedPath = protectedPaths.some(path => config.url.includes(path));
+  const isProtectedPath = protectedPaths.some((path) =>
+    config.url.includes(path)
+  );
 
   if (token && isProtectedPath) {
-      config.headers.authorization = `Bearer ${token}`;
+    config.headers.authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-
 // ฟังก์ชั่น Method ต่างๆ สำหรับใช้ติดต่อกับ Backend API
 const dataProvider = {
-  getList: async(resource, params) => {
+  getList: async (resource, params) => {
     try {
       const { page, perPage } = params.pagination;
       const filter = params.filter;
 
-      const response = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/${resource}`);
+      const response = await axiosInstance.get(
+        `${import.meta.env.VITE_API_URL}/${resource}`
+      );
       let data = response.data;
 
       // กรองข้อมูลตามหลายฟิลด์ใน filter
       if (filter.name) {
-        data = data.filter(item =>
-            item.name.toLowerCase().includes(filter.name.toLowerCase())
+        data = data.filter((item) =>
+          item.name.toLowerCase().includes(filter.name.toLowerCase())
         );
       }
       if (filter.title) {
-        data = data.filter(item =>
-            item.title.toLowerCase().includes(filter.title.toLowerCase())
+        data = data.filter((item) =>
+          item.title.toLowerCase().includes(filter.title.toLowerCase())
         );
       }
-
 
       // แบ่งข้อมูลเป็นหน้าๆ ตาม page และ perPage
       const start = (page - 1) * perPage;
@@ -56,8 +57,8 @@ const dataProvider = {
       const paginatedData = data.slice(start, end);
 
       return {
-          data: paginatedData,
-          total: data.length,  // จำนวนข้อมูลทั้งหมดเพื่อคำนวณหน้าทั้งหมด
+        data: paginatedData,
+        total: data.length, // จำนวนข้อมูลทั้งหมดเพื่อคำนวณหน้าทั้งหมด
       };
 
       //แบบไม่ใช้ Pagination
@@ -70,10 +71,24 @@ const dataProvider = {
     }
   },
 
-  getOne: async(resource, params) => {
+  /* For Select category when create assets */
+  getMany: async (resource, params) => {
+    if (resource === "category") {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/${resource}`);
+      const categories = response.data;
+
+      return {
+        data: categories.filter((category) => params.ids.includes(category.id)),
+      };
+    }
+  },
+
+  getOne: async (resource, params) => {
     try {
-      const response = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/${resource}/${params.id}`);
-  
+      const response = await axiosInstance.get(
+        `${import.meta.env.VITE_API_URL}/${resource}/${params.id}`
+      );
+
       return {
         data: { ...response.data, id: response.data.id }, // ใส่ id ในข้อมูล
       };
@@ -82,9 +97,10 @@ const dataProvider = {
     }
   },
 
-  create: async(resource, params) => {
+  create: async (resource, params) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/${resource}`,
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/${resource}`,
         params.data,
         {
           headers: {
@@ -93,7 +109,6 @@ const dataProvider = {
         }
       );
 
-  
       return {
         data: { ...response.data, id: response.data.id },
       };
@@ -102,9 +117,10 @@ const dataProvider = {
     }
   },
 
-  update: async(resource, params) => {
+  update: async (resource, params) => {
     try {
-      const response = await axios.put(`${import.meta.env.VITE_API_URL}/${resource}/${params.id}`,
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_URL}/${resource}/${params.id}`,
         params.data,
         {
           headers: {
@@ -112,7 +128,7 @@ const dataProvider = {
           },
         }
       );
-  
+
       return {
         data: { ...response.data, id: response.data.id },
       };
@@ -123,14 +139,15 @@ const dataProvider = {
 
   delete: async (resource, params) => {
     try {
-      const response = await axios.delete(`${import.meta.env.VITE_API_URL}/${resource}/${params.id}`,
+      const response = await axios.delete(
+        `${import.meta.env.VITE_API_URL}/${resource}/${params.id}`,
         {
           headers: {
             authorization: `Bearer ${token}`,
           },
         }
       );
-  
+
       return {
         data: { ...response.data, id: response.data.id },
       };

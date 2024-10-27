@@ -6,16 +6,18 @@ import dataProvider from '../../functions/customDataProvider'; // fetch-data แ
 
 //Components
 import { UserField, CategoryField, AssetsField } from "../../components/admin/ListData";
-import { CategoryCreate } from "../../components/admin/CreateData";
-import { CategoryEdit } from "../../components/admin/EditData";
+import { AssetsCreate, CategoryCreate } from "../../components/admin/CreateData";
+import { AssetsEdit, CategoryEdit, UserEdit } from "../../components/admin/EditData";
+//Icon
+import { FiUsers, FiLayers, FiHome } from "react-icons/fi";
 
 
 function HomeAdmin() {
   return (
     <Admin basename="/admin-bank" dataProvider={dataProvider} >
-      <Resource name="user" list={UserField} />
-      <Resource name="category" list={CategoryField} create={CategoryCreate} edit={CategoryEdit} />
-      <Resource name="assets" list={AssetsField} />
+      <Resource name="user" list={UserField} edit={UserEdit} icon={FiUsers} />
+      <Resource name="category" list={CategoryField} create={CategoryCreate} edit={CategoryEdit} icon={FiLayers} />
+      <Resource name="assets" list={AssetsField} create={AssetsCreate} edit={AssetsEdit} icon={FiHome} />
     </Admin>
   );
 }

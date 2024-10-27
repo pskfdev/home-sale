@@ -23,6 +23,7 @@ export const UserField = () => {
         <TextField source="email" />
         <TextField source="name" />
         <TextField source="role" />
+        <EditButton />
       </Datagrid>
     </List>
   );
@@ -54,6 +55,7 @@ export const AssetsField = () => {
         <TextField source="location" />
         <TextField source="ownerName" />
         <TextField source="ownerContact" />
+        <EditButton />
       </Datagrid>
     </List>
   );
