@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 //components
 import {
@@ -9,10 +10,12 @@ import {
   TextInput,
   required,
   useRecordContext,
+  useNotify,
+  useRedirect,
+  useDataProvider,
 } from "react-admin";
 import UploadfileEdit from "./UploadfileEdit";
-
-import { useParams } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 //Functions
 import { readAssets } from "../../functions/product";
@@ -59,17 +62,42 @@ export const CategoryEdit = () => {
 
 export const AssetsEdit = () => {
   const { id } = useParams();
-  const [image, setImage] = useState();
+
+  const notify = useNotify();
+  const redirect = useRedirect();
+  const dataProvider = useDataProvider();
+  const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchData = () => {
     readAssets(id)
       .then((res) => {
-        setImage(res.data.images);
+        setImages(res.data.images);
       })
       .catch((err) => {
         console.log("Error", err);
       });
   };
+
+  // Update assets to db
+  const handleSubmit = async (data) => {
+    try {
+      
+      const response = await dataProvider.update("assets", {
+        id: id,
+        data: {
+          ...data,
+          images: images,
+        },
+      });
+
+      notify("Update Assets successfully");
+      redirect("/admin-bank/assets");
+    } catch (error) {
+      notify(`Error: ${error.message}`, { type: "warning" });
+    }
+  };
+  
 
   useEffect(() => {
     fetchData();
@@ -77,7 +105,18 @@ export const AssetsEdit = () => {
 
   return (
     <Edit title={<TitleAssets />}>
-      <SimpleForm /* onSubmit={handleSubmit} */>
+      {/* Loadding */}
+      {isLoading && (
+        <div className="w-full bg-black opacity-50 h-full absolute z-10">
+          <CircularProgress
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            size={120}
+          />
+        </div>
+      )}
+
+      {/* Form edit assets */}
+      <SimpleForm onSubmit={handleSubmit}>
         <TextInput source="title" label="Title" validate={required()} />
         <TextInput source="location" label="Location" validate={required()} />
         <TextInput
@@ -108,7 +147,14 @@ export const AssetsEdit = () => {
         />
 
         {/* Input สำหรับอัปโหลดรูปภาพ */}
-        {image && <UploadfileEdit image={image} />}
+        {images && (
+          <UploadfileEdit
+            images={images}
+            setImages={setImages}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+          />
+        )}
       </SimpleForm>
     </Edit>
   );

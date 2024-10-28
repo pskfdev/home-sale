@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 //components
 import { TextInput, useNotify, useRefresh } from "react-admin";
-import { TextField } from "@mui/material";
 //lib image-resize
 import Resize from "react-image-file-resizer";
 //Functions
