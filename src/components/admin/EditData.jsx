@@ -18,7 +18,7 @@ import UploadfileEdit from "./UploadfileEdit";
 import { CircularProgress } from "@mui/material";
 
 //Functions
-import { readAssets } from "../../functions/product";
+import { readAssets } from "../../functions/assets";
 
 const TitleUser = () => {
   const record = useRecordContext();
@@ -92,7 +92,7 @@ export const AssetsEdit = () => {
       });
 
       notify("Update Assets successfully");
-      redirect("/admin-bank/assets");
+      redirect("/admin/assets");
     } catch (error) {
       notify(`Error: ${error.message}`, { type: "warning" });
     }

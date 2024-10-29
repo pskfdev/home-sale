@@ -5,7 +5,7 @@ import { TextInput, useNotify, useRefresh } from "react-admin";
 //lib image-resize
 import Resize from "react-image-file-resizer";
 //Functions
-import { removeFile, uploadFile } from "../../functions/product";
+import { removeFile, uploadFile } from "../../functions/assets";
 
 function Uploadfile({ image, setImage, setIsLoading }) {
   const notify = useNotify();

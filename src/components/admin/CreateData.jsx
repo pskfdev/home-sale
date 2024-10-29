@@ -45,7 +45,7 @@ export const AssetsCreate = () => {
       });
 
       notify("Assets created successfully");
-      redirect("/admin-bank/assets");
+      redirect("/admin/assets");
     } catch (error) {
       notify(`Error: ${error.message}`, { type: "warning" });
     }

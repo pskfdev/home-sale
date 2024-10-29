@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
   },
   /* Admin router */
   {
-    path: "/admin-bank/*",
+    path: "/admin/*",
     element: <HomeAdmin />,
   },
   /* Page not found */

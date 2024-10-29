@@ -7,7 +7,6 @@ const protectedPaths = ["/user", "/wishlist"];
 
 // สร้าง Axios instance
 const axiosInstance = axios.create({
-  /* baseURL: 'http://api.example.com', */
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -28,7 +27,7 @@ axiosInstance.interceptors.request.use((config) => {
 });
 
 // ฟังก์ชั่น Method ต่างๆ สำหรับใช้ติดต่อกับ Backend API
-const dataProvider = {
+export const dataProvider = {
   getList: async (resource, params) => {
     try {
       const { page, perPage } = params.pagination;
@@ -156,5 +155,3 @@ const dataProvider = {
     }
   },
 };
-
-export default dataProvider;
