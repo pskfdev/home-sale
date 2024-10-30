@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 
 //Components
 import { Autocomplete, Breadcrumbs, Button, TextField } from "@mui/material";
+import { FiPlusCircle } from "react-icons/fi";
 import Cardhouse from "../components/util/Card-house";
 
 const county = [
@@ -22,12 +23,14 @@ function ListHome() {
     county: "",
     detail: "",
   });
-  
+
   const [data, setData] = useState([]);
   const [dataSearch, setDataSearch] = useState([]);
   /* Get pathname */
   const location = useLocation();
   const pathname = location.pathname.substring(1);
+  /* Get token */
+  const token = localStorage.getItem("token");
 
   const handleChange = (e) => {
     /* const { name, value } = e.target; */
@@ -43,7 +46,7 @@ function ListHome() {
     if (data.length == 0) {
       alert("ไม่มีข้อมูลที่ค้นหา");
       return;
-    } else if(!value.current.county|| !value.current.detail) {
+    } else if (!value.current.county || !value.current.detail) {
       alert("กรุณากรอกข้อมูลให้ครบถ้วน");
       return;
     }
@@ -88,7 +91,9 @@ function ListHome() {
           disablePortal
           options={county}
           sx={{ width: "50%" }}
-          renderInput={(params) => <TextField required {...params} label="จังหวัด" />}
+          renderInput={(params) => (
+            <TextField required {...params} label="จังหวัด" />
+          )}
           onChange={(e, v) => (value.current.county = v)}
         />
 
@@ -114,12 +119,17 @@ function ListHome() {
             <Link to="/">หน้าแรก</Link>
             <p className="text-gray-700">{pathname}</p>
           </Breadcrumbs>
-          <h2 className="uppercase">{pathname}</h2>
+          <div className="flex items-center space-x-5">
+            <h2 className="uppercase">{pathname}</h2>
+            {token && <FiPlusCircle size={29} className="text-green-500 cursor-pointer hover:scale-125 hover:text-green-700" />}
+          </div>
         </div>
 
         {/* list-house */}
         <div className="space-y-5">
-          <p className="text-yellow-500">{dataSearch?.length} อสังหาริมทรัพย์</p>
+          <p className="text-yellow-500">
+            {dataSearch?.length} อสังหาริมทรัพย์
+          </p>
 
           <div className="space-y-5">
             {dataSearch.length != 0 ? (

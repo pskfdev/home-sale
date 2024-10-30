@@ -1,7 +1,5 @@
 import axios from "axios";
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mjk5MzE2NjgsImV4cCI6MTczMTIyNzY2OH0.B3g6Sh55jAe-3dD-cCnHWJigFnQQj_gy9QjtMMTwG_U";
 // สร้างรายการ path ที่ต้องใช้ token
 const protectedPaths = ["/user", "/wishlist"];
 
@@ -15,6 +13,8 @@ const axiosInstance = axios.create({
 
 // เพิ่ม token เข้าใน request headers ถ้า path นั้นต้องการ token
 axiosInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  
   // ตรวจสอบว่าชื่อ path อยู่ในรายการ protectedPaths หรือไม่
   const isProtectedPath = protectedPaths.some((path) =>
     config.url.includes(path)

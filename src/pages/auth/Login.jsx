@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useNotify } from "react-admin";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //components
 import { Box, Button, TextField, Typography } from "@mui/material";
-
 //functions
 import { login } from "../../functions/auth";
-
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -21,12 +19,13 @@ function Login() {
     login({ email, password })
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("username", res.data.payload.name)
-        localStorage.setItem("userrole", res.data.payload.role)
+        localStorage.setItem("username", res.data.payload.name);
+        localStorage.setItem("userrole", res.data.payload.role);
         roleBaseRedirect(res.data.payload.role);
       })
       .catch((err) => {
         console.log("Error", err);
+        alert(err.response.data.msg);
         notify(err.response.data.msg, { type: "error" });
       });
   };
@@ -40,12 +39,19 @@ function Login() {
   };
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" mt={10}>
-      <Typography variant="h4" gutterBottom>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      mt={10}
+      className="h-screen"
+    >
+      <Typography variant="h4" gutterBottom className="uppercase">
         Login
       </Typography>
       <form onSubmit={handleLogin}>
         <TextField
+          required
           label="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -53,6 +59,7 @@ function Login() {
           margin="normal"
         />
         <TextField
+          required
           label="Password"
           type="password"
           value={password}
@@ -64,6 +71,12 @@ function Login() {
           Login
         </Button>
       </form>
+      <Link
+        to="/register"
+        className="mt-5 text-blue-500 uppercase underline underline-offset-4"
+      >
+        register
+      </Link>
     </Box>
   );
 }

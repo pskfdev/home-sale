@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //Components
 import {
   Box,
+  Button,
   Collapse,
   Divider,
   List,
@@ -13,9 +14,31 @@ import {
   ListSubheader,
 } from "@mui/material";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { FaUserCircle } from "react-icons/fa";
+
+//Functions
+import { logout } from "../../functions/auth";
+
+const HeaderMenu = () => {
+  const username = localStorage.getItem("username");
+
+  return (
+    <div className="bg-blue-700 flex items-center justify-between text-white p-4 text-xl font-bold tracking-widest">
+      <p>เมนู</p>
+      {username && (
+        <div className="flex items-center space-x-2 px-2 bg-blue-900 text-white border-2 border-sky-200 rounded-xl cursor-pointer">
+          <FaUserCircle size={17} className="text-sky-200" />
+          <h4>{username}</h4>
+        </div>
+      )}
+    </div>
+  );
+};
 
 function SidebarMenu() {
   const [subMenu, setSubmenu] = useState(false);
+  const username = localStorage.getItem("username");
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setSubmenu(!subMenu);
@@ -25,10 +48,9 @@ function SidebarMenu() {
     <Box
       sx={{ width: 250 }}
       role="presentation"
+      className="flex flex-col justify-between h-full"
     >
-      <List
-        subheader={<div className="bg-blue-700 text-white p-4 text-xl font-bold tracking-widest">เมนู</div>}
-      >
+      <List subheader={<HeaderMenu />}>
         <ListItem disablePadding>
           <ListItemButton component={Link} to="/">
             <ListItemText primary="หน้าหลัก" />
@@ -93,6 +115,19 @@ function SidebarMenu() {
           </ListItemButton>
         </ListItem>
       </List>
+
+      {/* Logout */}
+      <div className="mx-auto py-4">
+        {username ? (
+          <Button variant="outlined" color="error" onClick={() => logout(navigate)}>
+            logout
+          </Button>
+        ) : (
+          <Button variant="outlined" component={Link} to="/login">
+            login
+          </Button>
+        )}
+      </div>
     </Box>
   );
 }

@@ -7,6 +7,8 @@ import SelectType from "./pages/SelectType";
 import Contact from "./pages/Contact";
 import DetailHome from "./pages/DetailHome";
 import HomeAdmin from "./pages/admin/Home-Admin";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
 
 
 export const router = createBrowserRouter([
@@ -30,6 +32,14 @@ export const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
     ],
   },

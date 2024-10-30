@@ -42,11 +42,18 @@ export const authProvider = {
         return Promise.resolve();
     }, */
 
-  // ดึงข้อมูลผู้ใช้ (ถ้ามี)
-  /* getIdentity: () => Promise.resolve({
-        id: 'user',
-        fullName: 'Admin User',
-    }), */
+  // ดึงข้อมูลผู้ใช้ (ที่ login)
+  /* getIdentity: () => {
+    const username = localStorage.getItem("username");
+
+    if (!username) {
+      return Promise.reject();
+    }
+
+    return Promise.resolve({
+      username: username,
+    });
+  }, */
 
   // ตรวจสอบสิทธิ์การเข้าถึง resource ต่าง ๆ
   /* getPermissions: () => Promise.resolve(), */
