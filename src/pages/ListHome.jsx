@@ -5,6 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Autocomplete, Breadcrumbs, Button, TextField } from "@mui/material";
 import { FiPlusCircle } from "react-icons/fi";
 import Cardhouse from "../components/util/Card-house";
+import ModalCreateAssets from "../components/modal/ModalCreateAssets";
 
 const county = [
   "กรุงเทพมหานคร",
@@ -24,6 +25,7 @@ function ListHome() {
     detail: "",
   });
 
+  const [modal, setModal] = React.useState(false);
   const [data, setData] = useState([]);
   const [dataSearch, setDataSearch] = useState([]);
   /* Get pathname */
@@ -121,7 +123,13 @@ function ListHome() {
           </Breadcrumbs>
           <div className="flex items-center space-x-5">
             <h2 className="uppercase">{pathname}</h2>
-            {token && <FiPlusCircle size={29} className="text-green-500 cursor-pointer hover:scale-125 hover:text-green-700" />}
+            {token && (
+              <FiPlusCircle
+                size={29}
+                onClick={() => setModal(true)}
+                className="text-green-500 cursor-pointer hover:scale-125 hover:text-green-700"
+              />
+            )}
           </div>
         </div>
 
@@ -139,6 +147,9 @@ function ListHome() {
             )}
           </div>
         </div>
+
+        {/* Modal Assets */}
+        <ModalCreateAssets modal={modal} setModal={setModal} />
       </div>
     </div>
   );

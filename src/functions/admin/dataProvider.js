@@ -98,6 +98,8 @@ export const dataProvider = {
 
   create: async (resource, params) => {
     try {
+      const token = localStorage.getItem("token");
+
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/${resource}`,
         params.data,
@@ -118,6 +120,8 @@ export const dataProvider = {
 
   update: async (resource, params) => {
     try {
+      const token = localStorage.getItem("token");
+
       const response = await axios.put(
         `${import.meta.env.VITE_API_URL}/${resource}/${params.id}`,
         params.data,
@@ -138,6 +142,8 @@ export const dataProvider = {
 
   delete: async (resource, params) => {
     try {
+      const token = localStorage.getItem("token");
+      
       const response = await axios.delete(
         `${import.meta.env.VITE_API_URL}/${resource}/${params.id}`,
         {
