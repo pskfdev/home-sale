@@ -25,7 +25,7 @@ function ListHome() {
     detail: "",
   });
 
-  const [modal, setModal] = React.useState(false);
+  const [modal, setModal] = useState(false);
   const [data, setData] = useState([]);
   const [dataSearch, setDataSearch] = useState([]);
   /* Get pathname */
@@ -148,7 +148,7 @@ function ListHome() {
           </div>
         </div>
 
-        {/* Modal Assets */}
+        {/* Modal Create Assets */}
         <ModalCreateAssets modal={modal} setModal={setModal} />
       </div>
     </div>

@@ -1,32 +1,23 @@
 import React from "react";
 //Components
-import { Box, Button, Typography, Modal } from "@mui/material";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import { Box, Modal } from "@mui/material";
+import { FiX } from "react-icons/fi";
+import CreateAssets from "../form/CreateAssets";
 
 function ModalCreateAssets({ modal, setModal }) {
   return (
-    <Modal
-      open={modal}
-      onClose={() => setModal(false)}
-    >
-      <Box sx={style}>
-        <Typography variant="h6" component="h2">
-          Text in a modal
-        </Typography>
-        <Typography sx={{ mt: 2 }}>
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-        </Typography>
+    <Modal open={modal} onClose={() => setModal(false)} className="relative">
+      <Box className="w-full lg:w-10/12 bg-white rounded-md p-5 shadow-2xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <h2 className="text-center uppercase pb-5 text-blue-800">
+          Create post
+        </h2>
+        <FiX
+          className="absolute top-2 right-2 text-blue-800 cursor-pointer hover:text-red-500"
+          size={25}
+          onClick={() => setModal(false)}
+        />
+
+        <CreateAssets setModal={setModal} />
       </Box>
     </Modal>
   );
