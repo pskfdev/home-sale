@@ -9,6 +9,7 @@ import DetailHome from "./pages/DetailHome";
 import HomeAdmin from "./pages/admin/Home-Admin";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
+import MyAssets from "./pages/MyAssets";
 
 
 export const router = createBrowserRouter([
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/myassets",
+        element: <MyAssets />,
       },
     ],
   },

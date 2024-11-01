@@ -4,23 +4,18 @@ import { Link, useParams } from "react-router-dom";
 import { Breadcrumbs, Container, Divider } from "@mui/material";
 import { FiPhoneCall, FiUser } from "react-icons/fi";
 import Carousel from "../components/util/Carousel";
+//Functions
+import { readAssets } from "../functions/assets";
 
 function DetailHome() {
   const [data, setData] = useState([]);
   const { id } = useParams();
-  
 
   const fetchData = async () => {
     try {
-      const response = await fetch("/data.json");
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
+      const response = await readAssets(id);
 
-      const json = await response.json();
-      const filter = json?.filter((item) => item.id == id);
-      
-      setData(filter[0]);
+      setData(response.data);
     } catch (error) {
       console.error(error.message);
     }
@@ -34,7 +29,7 @@ function DetailHome() {
     <div className="min-h-screen bg-gray-100">
       {/* Carousel */}
       <div className="h-[500px] w-full bg-black">
-        <Carousel url={data?.url} />
+        <Carousel images={data?.images} />
       </div>
 
       {/* Detail */}
@@ -43,15 +38,16 @@ function DetailHome() {
         <div className="space-y-4">
           <Breadcrumbs aria-label="breadcrumb">
             <Link to="/">หน้าแรก</Link>
-            <Link to={`/${data?.type}`}>{data?.type}</Link>
-            <p className="text-gray-700">
-              {data?.title}
-            </p>
+            <Link to={`/${data?.category?.name}`}>{data?.category?.name}</Link>
+            <p className="text-gray-700">{data?.title}</p>
           </Breadcrumbs>
 
           <div className="flex flex-col md:flex-row space-y-5 md:space-y-0 justify-between">
             <h2>{data?.title}</h2>
-            <h2>{data?.price}</h2>
+            <h2 className="text-gray-500">
+              {`เช่า ${data?.priceRent} บาท/เดือน`}{" "}
+              <span className="text-blue-500">{`| ขาย ${data?.priceSale} บาท`}</span>
+            </h2>
           </div>
         </div>
 
@@ -62,9 +58,7 @@ function DetailHome() {
           <div className="mt-5 md:pe-20 space-y-4">
             <p>{data?.title}</p>
             <p className="text-slate-700">รายละเอียดบ้าน</p>
-            <p>
-              {data?.detailHome}
-            </p>
+            <p>{data?.description}</p>
           </div>
         </div>
 

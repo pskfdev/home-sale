@@ -6,8 +6,10 @@ import { Autocomplete, Breadcrumbs, Button, TextField } from "@mui/material";
 import { FiPlusCircle } from "react-icons/fi";
 import Cardhouse from "../components/util/Card-house";
 import ModalCreateAssets from "../components/modal/ModalCreateAssets";
+//Functions
+import { listAssets } from "../functions/assets";
 
-const county = [
+const listLocation = [
   "กรุงเทพมหานคร",
   "สมุทรปราการ",
   "ปทุมธานี",
@@ -19,10 +21,10 @@ const county = [
 ];
 
 function ListHome() {
-  /* useRef เวลา rerender ข้อมูลจะไม่ถูก reset */
+  /* useRef เวลา Rerender ข้อมูลจะไม่ถูก reset */
   const value = useRef({
-    county: "",
-    detail: "",
+    location: "",
+    description: "",
   });
 
   const [modal, setModal] = useState(false);
@@ -30,7 +32,8 @@ function ListHome() {
   const [dataSearch, setDataSearch] = useState([]);
   /* Get pathname */
   const location = useLocation();
-  const pathname = location.pathname.substring(1);
+  const pathname = location.pathname.substring(1); /* ตัด "/" ออก */
+
   /* Get token */
   const token = localStorage.getItem("token");
 
@@ -48,15 +51,18 @@ function ListHome() {
     if (data.length == 0) {
       alert("ไม่มีข้อมูลที่ค้นหา");
       return;
-    } else if (!value.current.county || !value.current.detail) {
+    } else if (!value.current.location || !value.current.description) {
       alert("กรุณากรอกข้อมูลให้ครบถ้วน");
       return;
     }
 
     let resultFilter = data?.filter(
       (item) =>
-        item.county == value.current.county &&
-        item.detail.toLowerCase().includes(value.current.detail.toLowerCase())
+        /* item.location == value.current.location */
+        value.current.location.includes(item.location) &&
+        item.description
+          .toLowerCase()
+          .includes(value.current.description.toLowerCase())
     );
 
     setDataSearch(resultFilter);
@@ -64,23 +70,21 @@ function ListHome() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("./data.json");
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
-
-      const json = await response.json();
-      const filter = json?.filter((item) => item.type == pathname);
+      const response = await listAssets();
+      const filter = response.data.filter(
+        (item) => item?.category?.name == pathname
+      );
       setData(filter);
       setDataSearch(filter);
     } catch (error) {
       console.error(error.message);
     }
   };
+  
 
   useEffect(() => {
     fetchData();
-  }, [location.pathname]);
+  }, [location.pathname, modal]);
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -91,18 +95,18 @@ function ListHome() {
       >
         <Autocomplete
           disablePortal
-          options={county}
+          options={listLocation}
           sx={{ width: "50%" }}
           renderInput={(params) => (
             <TextField required {...params} label="จังหวัด" />
           )}
-          onChange={(e, v) => (value.current.county = v)}
+          onChange={(e, v) => (value.current.location = v)}
         />
 
         <TextField
           required
           type="search"
-          name="detail"
+          name="description"
           label="รายละเอียดสถานที่"
           sx={{ width: "100%" }}
           onChange={handleChange}
@@ -115,7 +119,7 @@ function ListHome() {
 
       {/* content */}
       <div className="py-10 px-10 space-y-10 bg-slate-100">
-        {/* Head */}
+        {/* Head, Button Modal */}
         <div className="space-y-2">
           <Breadcrumbs aria-label="breadcrumb">
             <Link to="/">หน้าแรก</Link>

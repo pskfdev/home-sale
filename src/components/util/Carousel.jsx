@@ -9,14 +9,14 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
-function Carousel({ url }) {
+function Carousel({ images }) {
   return (
     <>
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
-        {url &&
-          url.map((item, idx) => (
+        {images &&
+          images.map((item, idx) => (
             <SwiperSlide key={idx}>
-              <img src={item} className="object-fit" />
+              <img src={item?.url} className="object-fit" />
             </SwiperSlide>
           ))}
       </Swiper>

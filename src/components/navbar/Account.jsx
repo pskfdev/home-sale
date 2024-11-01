@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //Components
 import { IconButton, Menu, MenuItem } from "@mui/material";
@@ -51,7 +51,7 @@ function Account({ username }) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem>
+        <MenuItem component={Link} to="/myassets">
           <span className="mr-2 text-sky-400">
             <FiHome size={22} />
           </span>
