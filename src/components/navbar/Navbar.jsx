@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 /* Components */
 import {
@@ -14,12 +14,15 @@ import {
 import { FiList, FiChevronDown, FiPhoneCall } from "react-icons/fi";
 import SidebarMenu from "./SidebarMenu";
 import Account from "./Account";
+/* Functions */
+import { currentUser } from "../../functions/auth";
 
 function Navbar() {
   const [menu, setMenu] = useState(null);
   const openMenu = Boolean(menu);
-  const location = useLocation();
-  const username = localStorage.getItem("username");
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const [username, setUsername] = useState()
 
   const handleDropdown = (event) => {
     setMenu(event.currentTarget);
@@ -28,12 +31,34 @@ function Navbar() {
     setMenu(null);
   };
 
+  /* Sidebar */
   const [open, setOpen] = useState(false);
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
 
-  useEffect(() => {}, [location.pathname]);
+  const checkCurrentUser = () => {
+    if (!token) {
+      console.log("No token");
+      setUsername("");
+
+      return;
+    }
+
+    currentUser(token)
+      .then((res) => {
+        setUsername(res.data.name);
+      })
+      .catch((error) => {
+        console.log("Error", error);
+        alert("Please log in again.")
+        navigate('/login');
+      });
+  };
+
+  useEffect(() => {
+    checkCurrentUser();
+  }, [token]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -47,7 +72,7 @@ function Navbar() {
               </div>
               {/* Menu-Sidebar */}
               <Drawer open={open} onClose={toggleDrawer(false)}>
-                <SidebarMenu />
+                <SidebarMenu username={username} />
               </Drawer>
 
               <Link to="/">
@@ -106,7 +131,7 @@ function Navbar() {
             </div>
           </div>
 
-          {/* flex-end */}
+          {/* flex-end login */}
           <div className="flex items-center">
             <div className="flex items-center space-x-2 p-2 bg-blue-900 text-white rounded-xl">
               <FiPhoneCall size={22} className="mt-1" />

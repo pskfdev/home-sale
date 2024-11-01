@@ -90,7 +90,7 @@ function Uploadfile({ formData, setFormData, setIsLoading }) {
               <img
                 src={item.url}
                 alt={item.public_id}
-                className="w-12 h-12 rounded-md"
+                className="w-12 h-12 rounded-md shadow-lg"
               />
               <span
                 onClick={() => handleRemove(item.public_id)}

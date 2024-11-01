@@ -19,8 +19,7 @@ import { FaUserCircle } from "react-icons/fa";
 //Functions
 import { logout } from "../../functions/auth";
 
-const HeaderMenu = () => {
-  const username = localStorage.getItem("username");
+const HeaderMenu = ({ username }) => {
 
   return (
     <div className="bg-blue-700 flex items-center justify-between text-white p-4 text-xl font-bold tracking-widest">
@@ -35,9 +34,8 @@ const HeaderMenu = () => {
   );
 };
 
-function SidebarMenu() {
+function SidebarMenu({ username }) {
   const [subMenu, setSubmenu] = useState(false);
-  const username = localStorage.getItem("username");
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -50,7 +48,7 @@ function SidebarMenu() {
       role="presentation"
       className="flex flex-col justify-between h-full"
     >
-      <List subheader={<HeaderMenu />}>
+      <List subheader={<HeaderMenu username={username} />}>
         <ListItem disablePadding>
           <ListItemButton component={Link} to="/">
             <ListItemText primary="หน้าหลัก" />
