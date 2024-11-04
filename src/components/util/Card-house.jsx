@@ -20,8 +20,8 @@ function Cardhouse({ item }) {
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 justify-between">
           <h3>{item?.title}</h3>
           <p className="text-gray-500">
-            {`เช่า ${item?.priceRent} บาท/เดือน`}{" "}
-            <span className="text-blue-500">{`| ขาย ${item?.priceSale} บาท`}</span>
+            {`เช่า ${item?.priceRent?.toLocaleString()} บาท/เดือน`}{" "}
+            <span className="text-blue-500">{`| ขาย ${item?.priceSale?.toLocaleString()} บาท`}</span>
           </p>
         </div>
 

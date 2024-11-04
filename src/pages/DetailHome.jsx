@@ -45,8 +45,8 @@ function DetailHome() {
           <div className="flex flex-col md:flex-row space-y-5 md:space-y-0 justify-between">
             <h2>{data?.title}</h2>
             <h2 className="text-gray-500">
-              {`เช่า ${data?.priceRent} บาท/เดือน`}{" "}
-              <span className="text-blue-500">{`| ขาย ${data?.priceSale} บาท`}</span>
+              {`เช่า ${data?.priceRent?.toLocaleString()} บาท/เดือน`}{" "}
+              <span className="text-blue-500">{`| ขาย ${data?.priceSale?.toLocaleString()} บาท`}</span>
             </h2>
           </div>
         </div>

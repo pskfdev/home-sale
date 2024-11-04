@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import {
   Button,
   CircularProgress,
+  InputAdornment,
   MenuItem,
   Select,
   TextField,
@@ -136,6 +137,11 @@ function CreateAssets({ setModal }) {
           variant="outlined"
           className="w-full"
           onChange={handleChange}
+          slotProps={{
+            input: {
+              endAdornment: <InputAdornment position="end">/ month</InputAdornment>,
+            },
+          }}
         />
 
         <TextField

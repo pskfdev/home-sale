@@ -10,6 +10,7 @@ import HomeAdmin from "./pages/admin/Home-Admin";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import MyAssets from "./pages/MyAssets";
+import ProtectRouteUser from "./pages/route-protect/ProtectRouteUser";
 
 
 export const router = createBrowserRouter([
@@ -44,7 +45,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "/myassets",
-        element: <MyAssets />,
+        /* element: <MyAssets />, */
+        element: <ProtectRouteUser element={<MyAssets />} />,
       },
     ],
   },
