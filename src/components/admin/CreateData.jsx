@@ -37,6 +37,12 @@ export const AssetsCreate = () => {
   // Create assets to db
   const handleSubmit = async (data) => {
     try {
+      
+      if (data.priceRent?.includes(",") || data.priceSale?.includes(",")) {
+        data.priceRent && (data.priceRent = Number(data.priceRent?.replace(/,/g, "")));
+        data.priceSale && (data.priceSale = Number(data.priceSale?.replace(/,/g, "")));
+      }
+
       const response = await dataProvider.create("assets", {
         data: {
           ...data,
