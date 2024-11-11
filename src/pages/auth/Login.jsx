@@ -43,8 +43,8 @@ function Login() {
       display="flex"
       flexDirection="column"
       alignItems="center"
-      mt={10}
-      className="h-screen"
+      pt={10}
+      className="h-screen bg-slate-200"
     >
       <Typography variant="h4" gutterBottom className="uppercase">
         Login
