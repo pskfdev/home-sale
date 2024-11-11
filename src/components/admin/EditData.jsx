@@ -82,7 +82,8 @@ export const AssetsEdit = () => {
   // Update assets to db
   const handleSubmit = async (data) => {
     try {
-      if (data.priceRent?.includes(",") || data.priceSale?.includes(",")) {
+      
+      if (String(data.priceRent)?.includes(",") || String(data.priceSale)?.includes(",")) {
         data.priceRent && (data.priceRent = Number(data.priceRent?.replace(/,/g, "")));
         data.priceSale && (data.priceSale = Number(data.priceSale?.replace(/,/g, "")));
       }
