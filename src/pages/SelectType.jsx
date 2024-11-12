@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function SelectType() {
 
   return (
-    <div className="absolute top-0 flex justify-center items-center min-h-screen px-5 py-20 w-full lg:py-0 bg-slate-200">
+    <div className="absolute top-0 flex justify-center items-center min-h-screen px-5 py-20 w-full bg-slate-200">
       <div className="space-y-5 w-full">
         <h2 className="text-center">เลือกประเภทที่ต้องการค้นหา</h2>
 
